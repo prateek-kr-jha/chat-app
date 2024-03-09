@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const colors = require('colors');
 const userRoutes = require("./routes/userRoutes");
+const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 // console.log(data);
 const app = express();
 dotenv.config();
@@ -16,5 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, console.log(`Server Started at PORT ${port}`.yellow.bold))
